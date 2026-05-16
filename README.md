@@ -24,28 +24,7 @@ js/
 assets/
 ```
 
-**First-time setup** (from this folder):
 
-```bash
-git init
-git remote add origin https://github.com/AbdelhamidADel/AbdelhamidAdel.github.io.git
-git add index.html css js assets README.md .gitignore
-git commit -m "Deploy Pharaonic Cyberpunk portfolio"
-git branch -M main
-git push -u origin main
-```
-
-**Updates** after you change the site:
-
-```bash
-git add index.html css js assets
-git commit -m "Update portfolio"
-git push
-```
-
-In the repo on GitHub: **Settings → Pages → Build and deployment → Source: Deploy from branch → Branch: `main` / `(root)`**. No build step is required.
-
-If the remote already has older files, either merge or force-push only if you intend to replace the old site entirely (`git push --force` overwrites remote history — use with care).
 
 ## Next.js app (optional)
 
