@@ -294,7 +294,6 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
   const phrases = [
     "Data Engineer",
     "ETL Developer",
-    "AWS Certified Engineer",
     "Data Analytics Specialist",
   ];
   let pi = 0,
