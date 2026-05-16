@@ -3,28 +3,86 @@
 const HIEROGLYPHS = "𓀀𓁐𓂀𓃀𓄿𓅓𓆙𓇳𓈖𓉐𓊪𓋴𓌳𓍯𓎛𓏏☥𓊽𓋹𓌞𓍶𓎡𓏤";
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ─── Cursor glow ─── */
-(function initCursor() {
-  const glow = document.getElementById("cursor-glow");
-  if (!glow || REDUCED_MOTION) return;
+/* ─── Modern Pharaonic cursor ─── */
+(function initPharaohCursor() {
+  const root = document.getElementById("pharaoh-cursor");
+  if (!root || REDUCED_MOTION) return;
+  if (!window.matchMedia("(pointer: fine)").matches) return;
 
+  const shine = root.querySelector(".cursor-shine");
+  const ring = root.querySelector(".cursor-ring");
+  const dot = root.querySelector(".cursor-dot");
+
+  const INTERACTIVE =
+    'a, button, [role="button"], input, textarea, select, label, .archive-card, .nav-link, .nav-cta, .btn-gold, .btn-ghost, .contact-card, .power-card, .cert-tile';
+
+  let mx = -100;
+  let my = -100;
+  let rx = mx;
+  let ry = my;
+  let sx = mx;
+  let sy = my;
   let visible = false;
+
+  document.body.classList.add("pharaoh-cursor-active");
+
+  function place(el, x, y) {
+    if (!el) return;
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+  }
+
+  function tick() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    sx += (mx - sx) * 0.06;
+    sy += (my - sy) * 0.06;
+
+    place(dot, mx, my);
+    place(ring, rx, ry);
+    place(shine, sx, sy);
+
+    requestAnimationFrame(tick);
+  }
+
   document.addEventListener(
     "mousemove",
     (e) => {
-      glow.style.left = e.clientX + "px";
-      glow.style.top = e.clientY + "px";
+      mx = e.clientX;
+      my = e.clientY;
       if (!visible) {
-        document.body.classList.add("has-mouse");
+        rx = mx;
+        ry = my;
+        sx = mx;
+        sy = my;
         visible = true;
+        root.style.opacity = "1";
       }
     },
     { passive: true }
   );
-  document.addEventListener("mouseleave", () => {
-    document.body.classList.remove("has-mouse");
+
+  document.addEventListener(
+    "mouseover",
+    (e) => {
+      root.classList.toggle("is-hover", !!e.target.closest(INTERACTIVE));
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("mousedown", () => root.classList.add("is-click"));
+  document.addEventListener("mouseup", () => root.classList.remove("is-click"));
+
+  document.documentElement.addEventListener("mouseleave", () => {
+    root.style.opacity = "0";
     visible = false;
   });
+
+  document.documentElement.addEventListener("mouseenter", () => {
+    if (visible) root.style.opacity = "1";
+  });
+
+  tick();
 })();
 
 /* ─── Main background canvas ─── */
@@ -174,23 +232,59 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
   else draw();
 })();
 
-/* ─── Nav ─── */
+/* ─── Nav — scroll state, mobile menu, active section ─── */
 (function initNav() {
   const nav = document.getElementById("navbar");
-  const toggle = document.querySelector(".mobile-toggle");
-  const links = document.querySelector(".nav-links");
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("nav-menu");
+  const backdrop = document.getElementById("nav-backdrop");
+  const navLinks = document.querySelectorAll(".nav-link[data-nav]");
+
+  const sections = ["about", "skills", "projects", "certifications", "contact"];
+
+  function setMenuOpen(open) {
+    menu?.classList.toggle("is-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    document.body.classList.toggle("nav-open", open);
+  }
 
   window.addEventListener(
     "scroll",
-    () => nav.classList.toggle("scrolled", window.scrollY > 40),
+    () => nav?.classList.toggle("scrolled", window.scrollY > 24),
     { passive: true }
   );
 
-  toggle?.addEventListener("click", () => links?.classList.toggle("open"));
-
-  document.querySelectorAll('.nav-links a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", () => links?.classList.remove("open"));
+  toggle?.addEventListener("click", () => {
+    setMenuOpen(!menu?.classList.contains("is-open"));
   });
+
+  backdrop?.addEventListener("click", () => setMenuOpen(false));
+
+  document.querySelectorAll('.navbar a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", () => setMenuOpen(false));
+  });
+
+  const sectionEls = sections
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  if (sectionEls.length && navLinks.length) {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const id = visible.target.id;
+        navLinks.forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`);
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.5] }
+    );
+    sectionEls.forEach((el) => obs.observe(el));
+  }
 })();
 
 /* ─── Typewriter ─── */
