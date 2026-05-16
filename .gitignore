@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+dist/
+.env*.local
+*.log
+.DS_Store
+
+# Duplicate hero image at repo root (use assets/ph-img.png)
+/ph-img.png

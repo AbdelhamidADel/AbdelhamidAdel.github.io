@@ -1,0 +1,414 @@
+/* ═══ HIEROGLYPHIC UI ACCENTS — subtle, cinematic ═══ */
+
+/* Global texture layer */
+.bg-glyphs {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ctext x='8' y='28' fill='%23d4af37' font-size='14' font-family='serif' opacity='0.9'%3E%E2%98%A5%3C/text%3E%3Ctext x='52' y='55' fill='%23d4af37' font-size='11' font-family='serif'%3E%E1%9E%99%3C/text%3E%3Ctext x='78' y='95' fill='%2300d1ff' font-size='10' font-family='serif' opacity='0.6'%3E%E1%9E%8A%3C/text%3E%3Ctext x='20' y='88' fill='%23d4af37' font-size='9' font-family='serif'%3E%E1%9E%8F%3C/text%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 15%, transparent 75%);
+}
+
+/* Section top ornament */
+.temple-section {
+  position: relative;
+}
+
+.temple-section::before {
+  content: "☥  𓊽  𓇳  𓊽  ☥";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  letter-spacing: 0.85em;
+  color: var(--gold);
+  opacity: 0.12;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Section label — sacred divider line */
+.section-label {
+  position: relative;
+}
+
+.section-label::after {
+  content: "";
+  flex: 1;
+  max-width: 200px;
+  height: 1px;
+  margin-left: 0.5rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.45), rgba(0, 209, 255, 0.15), transparent);
+}
+
+.section-glyph {
+  display: inline-block;
+  transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.section-glyph.glyph-pulse {
+  color: var(--gold-bright);
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  transform: scale(1.08);
+}
+
+/* Ornamental divider block */
+.glyph-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 auto 2.5rem;
+  max-width: 320px;
+  opacity: 0.35;
+}
+
+.glyph-divider::before,
+.glyph-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+.glyph-divider span {
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  font-family: var(--font-mono);
+}
+
+/* ─── Hero hieroglyph field ─── */
+.hero-glyph-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-glyph {
+  position: absolute;
+  font-size: clamp(0.9rem, 2vw, 1.4rem);
+  color: var(--gold);
+  opacity: 0;
+  text-shadow: 0 0 24px rgba(212, 175, 55, 0.25);
+  animation: heroGlyphFloat 12s ease-in-out infinite;
+  animation-delay: calc(var(--d, 0) * -1.5s);
+}
+
+.hero-glyph:nth-child(odd) {
+  color: var(--cyan);
+  text-shadow: 0 0 20px rgba(0, 209, 255, 0.2);
+}
+
+@keyframes heroGlyphFloat {
+  0%, 100% {
+    opacity: 0.06;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.18;
+    transform: translateY(-12px) scale(1.05);
+  }
+}
+
+.hero-sacred-geo {
+  position: absolute;
+  right: 5%;
+  top: 18%;
+  width: min(280px, 35vw);
+  height: min(280px, 35vw);
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-sacred-geo svg {
+  width: 100%;
+  height: 100%;
+  animation: geoRotate 90s linear infinite;
+}
+
+@keyframes geoRotate {
+  to { transform: rotate(360deg); }
+}
+
+#hero .hero-content,
+#hero .hero-portrait {
+  position: relative;
+  z-index: 2;
+}
+
+/* Engraved card corners */
+.archive-card,
+.power-card,
+.cert-tile,
+.cert-showcase {
+  position: relative;
+}
+
+.archive-card::before,
+.archive-card::after,
+.power-card::after,
+.cert-tile::before {
+  position: absolute;
+  font-size: 0.55rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.archive-card::before { content: "𓏛"; top: 0.85rem; left: 1rem; }
+.archive-card::after { content: "𓇳"; top: 0.85rem; right: 1rem; }
+
+.power-card::after {
+  content: "𓋹";
+  top: 0.75rem;
+  right: 0.85rem;
+  left: auto;
+  bottom: auto;
+}
+
+.cert-tile::before { content: "𓋹"; top: 0.65rem; right: 0.65rem; left: auto; }
+
+.cert-showcase::after {
+  content: "☥";
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--gold);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.power-card {
+  background-image:
+    linear-gradient(var(--gold-dim), var(--gold-dim)),
+    linear-gradient(var(--gold-dim), var(--gold-dim));
+  background-size: 10px 1px, 1px 10px;
+  background-position: 0 0, 0 0;
+  background-repeat: no-repeat;
+}
+
+.power-card:hover {
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.5), rgba(212, 175, 55, 0.5)),
+    linear-gradient(rgba(212, 175, 55, 0.5), rgba(212, 175, 55, 0.5));
+}
+
+.archive-card:hover::before,
+.archive-card:hover::after,
+.archive-card.open::before,
+.archive-card.open::after,
+.power-card:hover::after,
+.cert-tile:hover::before {
+  opacity: 0.35;
+}
+
+/* Archive — encoded corner brackets */
+.archive-card {
+  background-image:
+    linear-gradient(var(--gold-dim), var(--gold-dim)),
+    linear-gradient(var(--gold-dim), var(--gold-dim)),
+    linear-gradient(var(--gold-dim), var(--gold-dim)),
+    linear-gradient(var(--gold-dim), var(--gold-dim));
+  background-size: 12px 1px, 1px 12px, 12px 1px, 1px 12px;
+  background-position: 0 0, 0 0, 100% 0, 100% 0;
+  background-repeat: no-repeat;
+  background-color: var(--card);
+}
+
+.archive-card:hover,
+.archive-card.open {
+  background-image:
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold)),
+    linear-gradient(var(--gold), var(--gold));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(212, 175, 55, 0.06);
+}
+
+/* Buttons — energy sweep */
+.btn-gold,
+.contact-submit,
+.nav-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold::after,
+.contact-submit::after,
+.nav-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+
+.btn-gold:hover::after,
+.contact-submit:hover::after,
+.nav-cta:hover::after {
+  transform: translateX(120%);
+}
+
+.btn-ghost {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ghost::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  transform: translateX(-50%);
+  transition: width 0.35s ease;
+}
+
+.btn-ghost:hover::after {
+  width: 80%;
+}
+
+/* Nav link hieroglyph dot on hover */
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a:not(.nav-cta)::after {
+  content: "𓏏";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  font-size: 0.45rem;
+  color: var(--gold);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-links a:not(.nav-cta):hover::after {
+  transform: translateX(-50%) scale(1);
+  opacity: 0.6;
+}
+
+.archive-card.glyph-flash::before,
+.archive-card.glyph-flash::after {
+  animation: glyphCornerPulse 0.65s ease;
+}
+
+.contact-panel::after {
+  content: "𓊽";
+  position: absolute;
+  bottom: 1rem;
+  right: 1.25rem;
+  font-size: 0.65rem;
+  color: var(--gold);
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes glyphCornerPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% {
+    opacity: 0.75;
+    text-shadow: 0 0 16px rgba(212, 175, 55, 0.65);
+    transform: scale(1.12);
+  }
+}
+
+/* Stat / hero badge etched line */
+.hero-badge,
+.contact-status {
+  position: relative;
+}
+
+.hero-badge::before {
+  content: "☥";
+  position: absolute;
+  left: -1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.5rem;
+  opacity: 0.35;
+  color: var(--gold);
+}
+
+/* Portrait holographic frame */
+.portrait-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 209, 255, 0.02) 3px,
+    rgba(0, 209, 255, 0.02) 4px
+  );
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.portrait-frame::before {
+  content: "𓂀";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--gold);
+  opacity: 0.25;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Flow diagram temple nodes */
+.flow-diagram {
+  position: relative;
+}
+
+.flow-diagram::before {
+  content: "𓊽  ───  𓇳  ───  𓊽";
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 0.45rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-dim);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glyph,
+  .hero-sacred-geo svg {
+    animation: none !important;
+    opacity: 0.08 !important;
+  }
+  .btn-gold::after,
+  .contact-submit::after,
+  .nav-cta::after {
+    display: none;
+  }
+}
