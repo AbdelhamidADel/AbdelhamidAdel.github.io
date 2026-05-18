@@ -1,7 +1,4 @@
 # Abdelhamid Adel — Data Engineer Portfolio
-
-Pharaonic Cyberpunk portfolio: dark premium UI blending ancient Egyptian aesthetics with modern data engineering.
-
 ## Quick start (static — no install)
 
 Open `index.html` in a browser, or serve locally:
