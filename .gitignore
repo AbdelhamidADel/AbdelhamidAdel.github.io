@@ -6,5 +6,5 @@ dist/
 *.log
 .DS_Store
 
-# Duplicate hero image at repo root (use assets/ph-img.png)
+# Duplicate hero image at repo root (use assets/profile.png)
 /ph-img.png

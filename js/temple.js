@@ -1,96 +1,13 @@
-/* Pharaonic Cyberpunk — Temple interactions */
+/* Portfolio interactions */
 
-const HIEROGLYPHS = "𓀀𓁐𓂀𓃀𓄿𓅓𓆙𓇳𓈖𓉐𓊪𓋴𓌳𓍯𓎛𓏏☥𓊽𓋹𓌞𓍶𓎡𓏤";
 const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-/* ─── Modern Pharaonic cursor ─── */
-(function initPharaohCursor() {
-  const root = document.getElementById("pharaoh-cursor");
-  if (!root || REDUCED_MOTION) return;
-  if (!window.matchMedia("(pointer: fine)").matches) return;
-
-  const shine = root.querySelector(".cursor-shine");
-  const ring = root.querySelector(".cursor-ring");
-  const dot = root.querySelector(".cursor-dot");
-
-  const INTERACTIVE =
-    'a, button, [role="button"], input, textarea, select, label, .archive-card, .nav-link, .nav-cta, .btn-gold, .btn-ghost, .contact-card, .power-card, .cert-tile';
-
-  let mx = -100;
-  let my = -100;
-  let rx = mx;
-  let ry = my;
-  let sx = mx;
-  let sy = my;
-  let visible = false;
-
-  document.body.classList.add("pharaoh-cursor-active");
-
-  function place(el, x, y) {
-    if (!el) return;
-    el.style.left = `${x}px`;
-    el.style.top = `${y}px`;
-  }
-
-  function tick() {
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    sx += (mx - sx) * 0.06;
-    sy += (my - sy) * 0.06;
-
-    place(dot, mx, my);
-    place(ring, rx, ry);
-    place(shine, sx, sy);
-
-    requestAnimationFrame(tick);
-  }
-
-  document.addEventListener(
-    "mousemove",
-    (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-      if (!visible) {
-        rx = mx;
-        ry = my;
-        sx = mx;
-        sy = my;
-        visible = true;
-        root.style.opacity = "1";
-      }
-    },
-    { passive: true }
-  );
-
-  document.addEventListener(
-    "mouseover",
-    (e) => {
-      root.classList.toggle("is-hover", !!e.target.closest(INTERACTIVE));
-    },
-    { passive: true }
-  );
-
-  document.addEventListener("mousedown", () => root.classList.add("is-click"));
-  document.addEventListener("mouseup", () => root.classList.remove("is-click"));
-
-  document.documentElement.addEventListener("mouseleave", () => {
-    root.style.opacity = "0";
-    visible = false;
-  });
-
-  document.documentElement.addEventListener("mouseenter", () => {
-    if (visible) root.style.opacity = "1";
-  });
-
-  tick();
-})();
 
 /* ─── Main background canvas ─── */
 (function initBgCanvas() {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  let w, h, particles = [], glyphs = [], streams = [];
+  let w, h, particles = [], streams = [];
   let mouse = { x: -1000, y: -1000 };
 
   function resize() {
@@ -108,20 +25,7 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
       vx: (Math.random() - 0.5) * 0.35,
       vy: (Math.random() - 0.5) * 0.35 + 0.15,
       r: Math.random() * 1.8 + 0.4,
-      gold: Math.random() > 0.55,
-    }));
-
-    const gCount = REDUCED_MOTION ? 6 : Math.min(18, Math.floor(area / 80000));
-    glyphs = Array.from({ length: gCount }, () => ({
-      char: HIEROGLYPHS[Math.floor(Math.random() * HIEROGLYPHS.length)],
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.12,
-      vy: (Math.random() - 0.5) * 0.12,
-      size: Math.random() * 14 + 10,
-      rot: Math.random() * Math.PI * 2,
-      rotV: (Math.random() - 0.5) * 0.004,
-      opacity: Math.random() * 0.07 + 0.03,
+      accent: Math.random() > 0.55,
     }));
 
     streams = Array.from({ length: REDUCED_MOTION ? 2 : 5 }, (_, i) => ({
@@ -146,7 +50,7 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
     /* Data streams */
     streams.forEach((s) => {
       s.offset += s.speed;
-      ctx.strokeStyle = "rgba(0, 209, 255, 0.06)";
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.06)";
       ctx.lineWidth = 1;
       ctx.beginPath();
       for (let x = 0; x < w; x += 12) {
@@ -156,7 +60,7 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
       }
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(212, 175, 55, 0.35)";
+      ctx.fillStyle = "rgba(59, 130, 246, 0.35)";
       for (let x = (s.offset % 80); x < w; x += 80) {
         const y = s.y + Math.sin((x + s.offset) * 0.02) * 8;
         ctx.beginPath();
@@ -184,16 +88,16 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.gold
-        ? `rgba(212, 175, 55, ${0.25 + p.r * 0.15})`
-        : `rgba(0, 209, 255, ${0.2 + p.r * 0.12})`;
+      ctx.fillStyle = p.accent
+        ? `rgba(59, 130, 246, ${0.25 + p.r * 0.15})`
+        : `rgba(56, 189, 248, ${0.2 + p.r * 0.12})`;
       ctx.fill();
 
       for (let j = i + 1; j < particles.length; j++) {
         const q = particles[j];
         const d = Math.hypot(p.x - q.x, p.y - q.y);
         if (d < 90) {
-          ctx.strokeStyle = `rgba(212, 175, 55, ${(1 - d / 90) * 0.08})`;
+          ctx.strokeStyle = `rgba(59, 130, 246, ${(1 - d / 90) * 0.08})`;
           ctx.lineWidth = 0.5;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
@@ -201,26 +105,6 @@ const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").mat
           ctx.stroke();
         }
       }
-    });
-
-    /* Floating hieroglyphs */
-    glyphs.forEach((g) => {
-      g.x += g.vx;
-      g.y += g.vy;
-      g.rot += g.rotV;
-      if (g.x < -40) g.x = w + 40;
-      if (g.x > w + 40) g.x = -40;
-      if (g.y < -40) g.y = h + 40;
-      if (g.y > h + 40) g.y = -40;
-
-      ctx.save();
-      ctx.translate(g.x, g.y);
-      ctx.rotate(g.rot);
-      ctx.font = `${g.size}px serif`;
-      ctx.fillStyle = `rgba(212, 175, 55, ${g.opacity})`;
-      ctx.textAlign = "center";
-      ctx.fillText(g.char, 0, 0);
-      ctx.restore();
     });
 
     if (!REDUCED_MOTION) requestAnimationFrame(draw);
