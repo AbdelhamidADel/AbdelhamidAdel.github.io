@@ -10,12 +10,12 @@
   <meta property="og:description" content="Data engineer specializing in pipelines, lakehouse architecture, and cloud analytics.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/profile.png">
-  <meta name="theme-color" content="#0b1120">
+  <meta name="theme-color" content="#FAF8F4">
   <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/temple.css">
   <script type="application/ld+json">
   {
@@ -35,27 +35,20 @@
   </script>
 </head>
 <body>
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-  <div class="bg-vignette" aria-hidden="true"></div>
-  <div class="bg-grid" aria-hidden="true"></div>
-
   <div class="site-wrap">
     <header class="nav-header" id="nav-header">
       <nav id="navbar" class="navbar" aria-label="Primary">
         <div class="navbar__shell">
           <a href="#hero" class="nav-logo">
-            <span class="nav-logo__mark" aria-hidden="true">AA</span>
-            <span class="nav-logo__text">
-              <span class="nav-logo__name">Abdelhamid Adel</span>
-              <span class="nav-logo__role">Data Engineer</span>
-            </span>
+            <span class="nav-logo__brand">Abdelhamid Adel</span>
           </a>
 
           <ul class="nav-links" id="nav-menu">
+            <li><a href="#hero" class="nav-link" data-nav>Home</a></li>
             <li><a href="#about" class="nav-link" data-nav>About</a></li>
             <li><a href="#skills" class="nav-link" data-nav>Skills</a></li>
-            <li><a href="#projects" class="nav-link" data-nav>Projects</a></li>
-            <li><a href="#certifications" class="nav-link" data-nav>Certs</a></li>
+            <li><a href="#projects" class="nav-link" data-nav>Works</a></li>
+            <li><a href="#certifications" class="nav-link" data-nav>Certifications</a></li>
             <li class="nav-links__cta">
               <a href="#contact" class="nav-cta nav-cta--in-menu">Contact</a>
             </li>
@@ -85,96 +78,75 @@
 
     <!-- HERO -->
     <section id="hero">
-      <div class="hero-pipeline" aria-hidden="true">
-        <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 150 Q100 80 200 120 T380 100" stroke="url(#g1)" stroke-width="1.5" opacity="0.6"/>
-          <path d="M20 180 Q120 220 220 160 T380 200" stroke="url(#g2)" stroke-width="1" opacity="0.4"/>
-          <circle cx="80" cy="130" r="4" fill="#3b82f6" opacity="0.8"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/></circle>
-          <circle cx="200" cy="120" r="5" fill="#38bdf8" opacity="0.9"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/></circle>
-          <circle cx="320" cy="110" r="4" fill="#3b82f6"><animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite"/></circle>
-          <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="400" y2="0"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
-            <linearGradient id="g2" x1="0" y1="0" x2="400" y2="0"><stop stop-color="#38bdf8" stop-opacity="0.3"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0.2"/></linearGradient>
-          </defs>
-        </svg>
-      </div>
+      <div class="hero-glow" aria-hidden="true"></div>
 
-      <div class="container hero-layout">
-        <div class="hero-content">
-          <div class="hero-badge">
-            <span class="hero-badge-dot"></span>
-            OPEN TO DATA ENGINEERING | DATA ANALYTICS ROLES
+      <div class="hero-stage">
+        <div class="hero-greeting" aria-hidden="true">
+          <span class="hero-greeting__text">Hey, there</span>
+        </div>
+
+        <div class="hero-portrait-center">
+          <img
+            src="assets/profile.png"
+            alt="Abdelhamid Adel — Data Engineer"
+            width="480"
+            height="600"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <div class="hero-meta hero-meta--left">
+          <div class="hero-status">
+            <span class="hero-status-dot" aria-hidden="true"></span>
+            Open to Data Engineering & Analytics roles
           </div>
+        </div>
 
-          
+        <div class="hero-meta hero-meta--right">
+          <p>Specialized in Data Engineering, ETL Pipelines, Lakehouse Architecture, and Cloud Analytics.</p>
+        </div>
 
-          <h1 class="hero-headline">
-            <span class="line-gold">Abdelhamid</span><br>
-            <span class="line-gold">Adel</span>
-          </h1>
+        <h1 class="hero-title hero-title--left">
+          <span class="hero-title__line">I AM</span>
+          <span class="hero-title__line">ABDELHAMID ADEL</span>
+        </h1>
 
-          <p class="hero-tagline">Scalable Data Platforms & Analytics</p>
+        <div class="hero-title hero-title--right" aria-label="Data Engineer">
+          <span class="hero-title__line">DATA</span>
+          <span class="hero-title__line">ENGINEER</span>
+        </div>
 
-          <p class="hero-type">
-            <span id="typewriter"></span><span class="type-cursor" aria-hidden="true"></span>
-          </p>
-
-          <p class="hero-desc">
-            Transforming raw data into <strong>digital intelligence</strong> at enterprise scale.
-            I engineer <strong>petabyte-grade pipelines</strong>, <strong>lakehouse architectures</strong>,
-            and <strong>cloud-native platforms</strong> — from ingestion to governed insight.
-          </p>
-
-          <div class="hero-seals">
-            <span class="seal-chip aws">☁ AWS Certified Data Engineer</span>
-      
-          </div>
-
-          <div class="hero-actions">
-            <a href="#projects" class="btn-gold">View Projects →</a>
-            <a href="mailto:Abdelhamidadel67@gmail.com" class="btn-ghost">Get in Touch</a>
+        <div class="hero-bottom">
+          <div class="hero-cert">
+            <span class="hero-cert-badge">☁</span>
+            AWS & Microsoft Certified Data Engineer
           </div>
 
           <div class="hero-stats">
             <div>
               <div class="stat-num" data-count="3" data-suffix="+">0+</div>
-              <div class="stat-label">YEARS EXPERIENCE</div>
+              <div class="stat-label">Years Experience</div>
             </div>
             <div>
               <div class="stat-num" data-count="1.7" data-suffix=" PB" data-decimals="1">0</div>
-              <div class="stat-label">DAILY PIPELINE</div>
+              <div class="stat-label">Daily Pipeline</div>
             </div>
             <div>
               <div class="stat-num" data-count="57" data-suffix="%">0%</div>
-              <div class="stat-label">PERF IMPROVEMENT</div>
+              <div class="stat-label">Perf Improvement</div>
             </div>
             <div>
               <div class="stat-num" data-count="130" data-suffix="+">0+</div>
-              <div class="stat-label">QUERIES REFINED</div>
+              <div class="stat-label">Queries Refined</div>
             </div>
           </div>
 
           <div class="hero-socials">
-            <a href="https://linkedin.com/in/abdelhamid-adel-9523441ab" target="_blank" rel="noopener" title="LinkedIn">in</a>
-            <a href="https://medium.com/@abdelhamidadel67" target="_blank" rel="noopener" title="Medium">M</a>
-            <a href="mailto:Abdelhamidadel67@gmail.com" title="Email">✉</a>
-            <a href="tel:+201208953654" title="Phone">☎</a>
+            <a href="https://linkedin.com/in/abdelhamid-adel-9523441ab" target="_blank" rel="noopener" title="LinkedIn">LinkedIn</a>
+            <a href="https://medium.com/@abdelhamidadel67" target="_blank" rel="noopener" title="Medium">Medium</a>
+            <a href="mailto:Abdelhamidadel67@gmail.com" title="Email">Email</a>
           </div>
-        </div>
-
-        <div class="hero-portrait reveal">
-          <div class="portrait-ring" aria-hidden="true"></div>
-          <div class="portrait-frame">
-            <img
-              src="assets/profile.png"
-              alt="Abdelhamid Adel — Data Engineer"
-              width="400"
-              height="400"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          <p class="portrait-caption">Data Engineer · Cairo, Egypt</p>
         </div>
       </div>
     </section>
@@ -571,6 +543,14 @@
         </div>
 
         <div class="cert-gallery reveal reveal-d1">
+          <div class="cert-tile">
+            <span class="cert-tile-year">2026</span>
+            <div class="cert-logo-wrap">
+              <img class="cert-logo cert-logo--color" src="assets/logos/microsoft.svg" alt="Microsoft" width="40" height="40" loading="lazy" decoding="async" />
+            </div>
+            <h4 class="cert-tile-name">Microsoft Certified: Fabric Data Engineer</h4>
+            <p class="cert-tile-org">Microsoft</p>
+          </div>
           <div class="cert-tile">
             <span class="cert-tile-year">2025</span>
             <div class="cert-logo-wrap">
